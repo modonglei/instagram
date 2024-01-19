@@ -157,24 +157,32 @@ def ports():  # 获取浏览器窗口详情
     res = requests.post(f"{url}/browser/ports",
                         data=json.dumps(json_data), headers=headers).json()
     print(res)
+
+# 获取分组详情
+def groupList():  # 获取分组列表
+    json_data = {
+        'page': 0,
+        'pageSize': 1000,
+        'all': 'true'
+    }
+    res = requests.post(f"{url}/group/list",
+                        data=json.dumps(json_data), headers=headers).json()
+    print(res)
+    return  res
+
+def browserList(id):  # 获取分组详情
+    json_data = {
+        'page': 0,
+        'pageSize': 100,
+        'groupId': id,
+    }
+    res = requests.post(f"{url}/browser/list",
+                        data=json.dumps(json_data), headers=headers).json()
+    print(res)
+    return res
+
+
 if __name__ == '__main__':
-    # RobotWindowbounds(1)
-    # RobotWindowbounds(2)
-    # RobotWindowbounds(3)
-    # RobotWindowbounds(4)
-    # RobotWindowbounds(5)
-    # RobotWindowbounds(6)
-    # RobotWindowbounds(7)
-    # id = '1e5ac424b6b54fac82a476cfac4e6169'
-    # id1 = '8e4722751b2747979a9f6d39f863bf17'
-    # id2 = 'fde7f9509442496d8a04e63d59b9a2e1'
-    # closeBrowser(id)
-    # deleteBrowser(id)
-    # closeBrowser(id1)
-    # deleteBrowser(id1)
-    # closeBrowser(id2)
-    # deleteBrowser(id2)
-    # res = detail(id)
-    # res1 = detail(id1)
-    # RobotWindowbounds([7])
-    ports()
+    # ports()
+    res = groupList()
+    browserList(res['data']['list'][0]['id'])
